@@ -1,4 +1,14 @@
-﻿define j = Character("James")
+﻿init python:
+    import random
+
+    # List of BGM files (paths relative to 'game/audio')
+    bgm_tracks = [
+        "theme1.wav",
+        "theme2.wav",
+        "theme3.wav"
+    ]
+
+define j = Character("James")
 
 image James:
     "images/James.png"
@@ -12,16 +22,18 @@ image SaladMonster:
     zoom 0.5
 
 
-default pronoun = "Mr"
+default pronoun = "Mr."
 label start:
+    $ selected_bgm = random.choice(bgm_tracks)
+    play music selected_bgm fadein 1.0
     menu:
         "How do you want to be addressed?"
-        "Mr":
-            $ pronoun = "Mr"
+        "Mr.":
+            $ pronoun = "Mr."
         "Sir":
             $ pronoun = "Sir"
-        "Mrs":
-            $ pronoun = "Mrs"
+        "Mrs.":
+            $ pronoun = "Mrs."
         "Ma'am":
             $ pronoun = "Ma'am"
         "Other":
@@ -46,7 +58,7 @@ label home:
         "Indeed!":
             j "Great!"
         "Indubidubly!":
-            j "Ok, Mr. Long-words."
+            j "Ok, [pronoun] Long-words."
         "Ind-":
             "(What's another ind- word?? Uhh... I know!)"
             "YES! THAT'S IT!"
@@ -116,7 +128,7 @@ label jHome:
                     j "Yes.{w=2.0}{nw}"
                     "You. {w=2.0} wouldn't. {w=2.0} dare.{w=1.0}{nw}"
                     play sound "audio/oiia.mp3"
-                    j "I would dare. {w=6.0} *Maniacal laughter!*"
+                    j "I {w=3.0}would{w=3.0} dare.  *Maniacal laughter!*"
                 "I mean I'm actually 'bouta kill you.":
                     j "..."
                     j "Wait..."
@@ -160,7 +172,7 @@ label happy:
     "Also..."
     "You."
     "Got."
-    "SALAD! AT LAST! AT LONG LAST! SALAD!"
+    "SALAD! {w=0.5} AT LAST! {w=0.5} AT LONG{w=0.75}, LONG {w=0.5}LAST!{w=1.0} SALAD!"
     return
 
 label tSecret:
