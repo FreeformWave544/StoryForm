@@ -11,9 +11,23 @@ image SaladMonster:
     "images/SaladMonster.png"
     zoom 0.5
 
+
+default pronoun = "Mr"
 label start:
+    menu:
+        "How do you want to be addressed?"
+        "Mr":
+            $ pronoun = "Mr"
+        "Sir":
+            $ pronoun = "Sir"
+        "Mrs":
+            $ pronoun = "Mrs"
+        "Ma'am":
+            $ pronoun = "Ma'am"
+        "Other":
+            $ pronoun = renpy.input("Enter your wanted selection.").strip()
     show James
-    j "Heya! I'm James."
+    j "Heya [pronoun]! I'm James."
     j "If you didn't know, I absolutely ADORE salad!"
     menu:
         "Where do you get salad?"
@@ -81,7 +95,44 @@ label home:
     return
 
 label jHome:
-    j "So... like my place?"
+    menu:
+        j "So... like my place?"
+        "Yeah, I mean... it's cosy?":
+            j "Drop the sarcasm. It doesn't suit you."
+            menu:
+                "Drop the sass. It doesn't suit you.":
+                    j "Okay... if you insist."
+        "Would look better without you in it.":
+            j "WHA—"
+            menu:
+                "I mean I'm 'bouta kill you.":
+                    "(For best experience of the following sequence, do not click.)"
+                    j "No you're not.{w=2.0}{nw}"
+                    "Yes I am.{w=2.0}{nw}"
+                    j "No you're not.{w=2.0}{nw}"
+                    "Why?{w=2.0}{nw}"
+                    j "Copyrighted cat sounds.{w=2.0}{nw}"
+                    "What?{w=2.0}{nw}"
+                    j "Yes.{w=2.0}{nw}"
+                    "You. {w=2.0} wouldn't. {w=2.0} dare.{w=1.0}{nw}"
+                    play sound "audio/oiia.mp3"
+                    j "I would dare. {w=6.0} *Maniacal laughter!*"
+                "I mean I'm actually 'bouta kill you.":
+                    j "..."
+                    j "Wait..."
+                    j "NOOOOOOOOOO"
+                    python:
+                        for i in range(3):
+                            renpy.say(j, " OOOOOOOOO (X[i + 1])")
+                    j "Not AGAIN."
+                "I mean I'm moderately 'bouta kill you.":
+                    j "You know what... let's calm down. Let's have some toast."
+                    j "*Grabs a butter knife.*"
+                    j "Y'Know, I'm quite the psycho..."
+                    "Are you, now? I dou—"
+                    return
+        "I guess...":
+            j "Oh... :("
     return
 
 label sbHome:
@@ -121,7 +172,7 @@ label tSecret:
     return
 
 label bad:
-    "You... you got the ONLY bad ending. You. Monster."
+    "You... you got the ONLY bad ending. You monster."
     return
 
 label horrid:
