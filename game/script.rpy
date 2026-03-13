@@ -232,6 +232,7 @@ label tSecret:
 label bad:
     $ persistent.ending_bad = True
     "You... you got the ONLY bad ending. You monster."
+    "The overseer will see you dealt with, [pronoun].{w=0.5}{nw}"
     jump endings
 
 label horrid:
