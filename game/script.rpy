@@ -45,6 +45,8 @@ label start:
             $ pronoun = "Ma'am"
         "Other":
             $ pronoun = renpy.input("Enter how you want to be addressed.").strip() or "Mr."
+            if "Gerald" in pronoun.strip().title():
+                $ pronoun = "⧫⨀⧖⨁⧘⨂"
     show James
     j "Heya [pronoun]! I'm James."
     j "If you didn't know, I absolutely ADORE salad!"
@@ -203,6 +205,7 @@ label sbHome:
                                     j "Why, thank you!"
                                 "WHA—":
                                     j "I know. Aren't I just the cutest?"
+                                    "*Gerald nods.*{w=0.1}{nw}"
             jump endings
         "Don't worry. I... uh... honestly no clue... want to go to a restaurant or something?":
             jump happy
