@@ -46,9 +46,9 @@ label start:
             $ pronoun = "Ma'am"
         "Other":
             $ pronoun = renpy.input("Enter how you want to be addressed.").strip() or "Mr."
-            if "Gerald" in pronoun.strip().title():
+            if "gerald" in pronoun.strip().lower():
                 $ pronoun = "⧫⨀⧖⨁⧘⨂"
-            elif "freeformwave" in pronoun.strip().title() or "free" and "wave" in pronoun.strip().lower():
+            elif "freeformwave" in pronoun.strip().lower() or ("wave" in pronoun.strip().lower() and ("form" in pronoun.strip().lower() or "free" in pronoun.strip().lower())):
                 "You have commited identity theft of the very developer you should be worshipping."
                 "You will now be terminated and replaced with an identical clone."
                 $ pronoun = renpy.random.choice(["Logan", "Safia", "David", "Kanokid", "John Smith", "Mehar", "Ghastly", "Ashmit"])
