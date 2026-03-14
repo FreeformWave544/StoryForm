@@ -13,6 +13,7 @@ default persistent.ending_secret = False
 default persistent.geraldNone = False
 default persistent.apocalypse = False
 default persistent.finale = False
+default persistent.oiia = False
 define j = Character("James")
 
 image salad_bg = Solid("#7CFC00")
@@ -47,6 +48,11 @@ label start:
             $ pronoun = renpy.input("Enter how you want to be addressed.").strip() or "Mr."
             if "Gerald" in pronoun.strip().title():
                 $ pronoun = "⧫⨀⧖⨁⧘⨂"
+            elif "freeformwave" in pronoun.strip().title() or "free" and "wave" in pronoun.strip().lower():
+                "You have commited identity theft of the very developer you should be worshipping."
+                "You will now be terminated and replaced with an identical clone."
+                $ pronoun = renpy.random.choice(["Logan", "Safia", "David", "Kanokid", "John Smith", "Mehar", "Ghastly", "Ashmit"])
+                "This clone shall be called... {w=1.0}\"[pronoun]\""
     show James
     j "Heya [pronoun]! I'm James."
     j "If you didn't know, I absolutely ADORE salad!"
@@ -147,6 +153,7 @@ label jHome:
                     "You. {w=2.0} wouldn't. {w=2.0} dare.{w=1.0}{nw}"
                     play sound "audio/oiia.mp3"
                     j "I {w=3.0}would{w=3.0} dare.  *Maniacal laughter!*"
+                    $ persistent.oiia = True
                 "I mean I'm actually 'bouta kill you.":
                     j "..."
                     j "Wait..."
@@ -276,14 +283,18 @@ label endings:
         "Kinda apocalyptical. Or is it?"
     else:
         "Salad... at the end of humanity? The root cause?"
+    if persistent.oiia:
+        "Copyright laws hopefully don't prevent me from having done that."
+    else:
+        "Stay lawful!"
     $ endings = [persistent.ending_happy,
     persistent.ending_bad,
     persistent.ending_horrid,
     persistent.ending_secret,
     persistent.geraldNone,
-    persistent.apocalypse]
+    persistent.apocalypse, persistent.oiia]
     "That adds up to{w=1.0}.{w=0.9}.{w=0.6}. {w=2.0}[sum(endings)]/[len(endings)] endings!"
-    if persistent.geraldNone and persistent.apocalypse and persistent.geraldNone and persistent.ending_secret and persistent.ending_bad and not persistent.finale:
+    if persistent.geraldNone and persistent.apocalypse and persistent.geraldNone and persistent.ending_secret and persistent.ending_bad and not persistent.finale and not persistent.oiia:
         $ persistent.finale = True
         "The Overseer approves."
         "Older than time, Egypt's pyramids, and even my own father."
