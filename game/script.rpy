@@ -311,6 +311,12 @@ label endings:
     persistent.geraldNone,
     persistent.apocalypse, persistent.oiia]
     "That adds up to{w=1.0}.{w=0.9}.{w=0.6}. {w=2.0}[sum(endings)]/[len(endings)] endings!"
+    if sum(endings) == len(endings):
+        jump john_world_Start
+        "You feel gravity start to pull you from the ground,"
+        "and as you float into the sky, you start to feel something."
+        "Your body starts to warp and deform... change and improve."
+        "Yet you feel no pain. {w=2.0} And then a temporary state of unconsciousness (sleep) takes a hold of you."
     if persistent.geraldNone and persistent.apocalypse and persistent.geraldNone and persistent.ending_secret and persistent.ending_bad and not persistent.finale and not persistent.oiia:
         $ persistent.finale = True
         "The Overseer approves."
