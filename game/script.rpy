@@ -14,7 +14,11 @@ default persistent.geraldNone = False
 default persistent.apocalypse = False
 default persistent.finale = False
 default persistent.oiia = False
-define j = Character("James")
+define j = Character("James", image="images/James.png")
+define g = Character("Gerald")
+define os = Character("The Overseer")
+define John = Character("John")
+define n = Character("Narrator")
 
 image salad_bg = Solid("#7CFC00")
 
@@ -53,6 +57,19 @@ label start:
                 "You will now be terminated and replaced with an identical clone."
                 $ pronoun = renpy.random.choice(["Logan", "Safia", "David", "Kanokid", "John Smith", "Mehar", "Ghastly", "Ashmit"])
                 "This clone shall be called... {w=1.0}\"[pronoun]\""
+            elif pronoun.strip().lower() == "john":
+                John "You... you remembered me?"
+                John "I thank you..."
+                John "As a reward..."
+                $ pronoun = "John"
+                "You feel gravity start to pull you from the ground,"
+                "and as you float into the sky, you start to feel something."
+                "Your body starts to warp and deform... change and improve."
+                "Yet you feel no pain. {w=2.0} And then a temporary state of unconsciousness (sleep) takes a hold of you."
+                jump john_world_Start
+        "The Overseer" if renpy.random.randint(1, 200) == 1:
+            $ pronoun = "TRAITOR!"
+            g "The Overseer disapproves of you."
     show James
     j "Heya [pronoun]! I'm James."
     j "If you didn't know, I absolutely ADORE salad!"
