@@ -1,6 +1,6 @@
 default total_stress = 0.0
 default total_happiness = 50.0
-default total_energy = 5.0
+default total_energy = 100.0
 default depressionModifier = 1.0
 default gender = "John"
 default name = ""
@@ -27,6 +27,14 @@ screen timer():
             text "Time Left: [int(time_left)]:[int((time_left % 1) * 60):02d]" color "#8f0404"
         else:
             text "Time Left: [int(time_left)]:[int((time_left % 1) * 60):02d]"
+
+screen stressBar():
+    bar:
+        yalign 0.5
+        value total_stress
+        range 100
+        xysize(25, 500)
+        style "vertical_bar"
 
 init python:
     from random import randint
@@ -66,6 +74,7 @@ label overStressed:
     jump start
 
 label john_world_Start:
+    show screen stressBar
     n "You've entered the school of John..."
     n "John is British 'cause I don't know American schools."
     menu:
@@ -139,8 +148,8 @@ label livingroom:
         "Can I have some salad?":
             m "Salad? You're not going to follow in your brother's footsteps, are you?"
             m "We all know what happened when he ate all that salad..."
-            $ time_left = 0.0
-            $ time(0.0)
+    $ time_left = 0.0
+    $ time(0.0)
     return
 
 label wardrobe:
@@ -358,10 +367,11 @@ label changingRoomTogether:
                     b "You are my bestie. So it was, is, and will always be my great pleasure."
                 "For... everything...":
                     b "*Faces flushes crimson.* I... sure... you're welcome... *gently takes your hand in theirs.*"
-            "*You pause as we pass a mirror on the wall, staring at your own reflection.*"
+            "*I pause as we pass a mirror on the wall, staring at my own reflection.*"
             b "C'mon. You've seen a mirror before."
             "I...{w=1.0} they were right...{w=1.0} I'll never be great... {w=1.0}never be {w=0.5}typical... {w=1.0}never be {w=0.5}normal..."
             b "Listen...{w=1.0}{nw}"
             b "Every mirror has scratches, {w=0.5}smudges {w=0.5}and imperfections. Never,{w=1.0} and I repeat NEVER do they tell the full truth..."
             b "{w=1.0}no matter how real it looks."
-            
+            $ stress(5.0)
+            n "A sense of unease feels you as that strange bar on the left you noticed quite some time ago fills further as that is said."
