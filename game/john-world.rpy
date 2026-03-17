@@ -16,6 +16,10 @@ default wearing = {
     "Trousers": False
 }
 
+image mirror:
+    "images/Mirror.png"
+    zoom 35
+
 define m = Character("Mother")
 define b = Character("Bestie")
 
@@ -366,12 +370,30 @@ label changingRoomTogether:
                 "For helping me...":
                     b "You are my bestie. So it was, is, and will always be my great pleasure."
                 "For... everything...":
-                    b "*Faces flushes crimson.* I... sure... you're welcome... *gently takes your hand in theirs.*"
+                    b "*Faces flushes crimson.* I... sure... you're welcome... {w=1.0}Oh... alright! *gently takes your hand in theirs.*"
             "*I pause as we pass a mirror on the wall, staring at my own reflection.*"
-            b "C'mon. You've seen a mirror before."
+            show Mirror
+            b "*Rests their hand on your shoulder.* C'mon. You've seen a mirror before."
             "I...{w=1.0} they were right...{w=1.0} I'll never be great... {w=1.0}never be {w=0.5}typical... {w=1.0}never be {w=0.5}normal..."
             b "Listen...{w=1.0}{nw}"
             b "Every mirror has scratches, {w=0.5}smudges {w=0.5}and imperfections. Never,{w=1.0} and I repeat NEVER do they tell the full truth..."
             b "{w=1.0}no matter how real it looks."
             $ stress(5.0)
-            n "A sense of unease feels you as that strange bar on the left you noticed quite some time ago fills further as that is said."
+            n "A sense of unease fills you as that strange bar on the left you noticed quite some time ago fills further as that is said by your 'bestie'."
+            menu:
+                b "What's wrong, [name], you look a bit pale?"
+                "I... I'm fine...":
+                    b "Oh... alright!"
+                "Just... a bit sick...":
+                    b "Oh... alright!"
+                "No. You are pale. Uno reverse.":
+                    b "I... uh... WHAT?!"
+                    n "You swear you see steam coming out of their ears."
+            $ say("Teacher", "C'mon, everyone! Lesson starting! If you're changed come out here.")
+            b "Well, guess that's our queue! Come on! *Takes your hand, leading you to the pool.*"
+            "Yeah. Prepared to drown."
+            b "Drown? I do not want to drown. Death would mean not being alive."
+            n "Ugh, so monotone. When will they show more emotions?!"
+            "*Laughs.*"
+            b "What's funny? Death is not funny. It is the end of life."
+            "*Chuckles.* Right."

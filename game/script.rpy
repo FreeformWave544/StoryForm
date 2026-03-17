@@ -33,7 +33,6 @@ image SaladMonster:
     "images/SaladMonster.png"
     zoom 0.5
 
-
 default pronoun = "Mr."
 label start:
     $ selected_bgm = random.choice(bgm_tracks)
@@ -189,6 +188,22 @@ label jHome:
             j "Oh... :("
             j "You know what..."
             j "I think... I think I'll just go to bed... you should leave..."
+            "Sorry! I didn't mean it."
+            j "Well either way I am tired. Good night."
+            menu:
+                "What do you do?"
+                "Sleep on the couch.":
+                    pass
+                "Sleep on his bedroom floor.":
+                    pass
+                "Sleep on his kitchen counter.":
+                    pass
+                "Sleep on the strange mat in the attic.":
+                    pass
+                "Sleep on the odd cage in the basement.":
+                    pass
+            "*James finds you in the morning.*"
+            j "WHAT ARE YOU DOING?! OUT. NOW."
     jump endings
 
 label sbHome:
