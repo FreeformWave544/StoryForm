@@ -36,7 +36,7 @@ image SaladMonster:
 default pronoun = "Mr."
 label start:
     $ selected_bgm = random.choice(bgm_tracks)
-    play music selected_bgm fadein 1.0
+    play music selected_bgm fadein 1.0 loop
     menu:
         "How do you want to be addressed?"
         "Mr.":
