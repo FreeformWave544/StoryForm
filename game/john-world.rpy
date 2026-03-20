@@ -372,7 +372,7 @@ label changingRoomTogether:
                 "For... everything...":
                     b "*Faces flushes crimson.* I... sure... you're welcome... {w=1.0}Oh... alright! *gently takes your hand in theirs.*"
             "*I pause as we pass a mirror on the wall, staring at my own reflection.*"
-            show Mirror
+            show mirror
             b "*Rests their hand on your shoulder.* C'mon. You've seen a mirror before."
             "I...{w=1.0} they were right...{w=1.0} I'll never be great... {w=1.0}never be {w=0.5}typical... {w=1.0}never be {w=0.5}normal..."
             b "Listen...{w=1.0}{nw}"
