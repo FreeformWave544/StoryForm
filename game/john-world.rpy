@@ -6,7 +6,7 @@ default gender = "John"
 default name = ""
 default dressed = False
 default privacy = False
-default time_left = 2000.0
+default time_left = 2000.0  
 default wearing = {
     "Shirt": False,
     "Tie": False,
@@ -91,6 +91,8 @@ label overStressed:
 
 label john_world_Start:
     show screen stressBar
+    $ total_stress = 0.0
+    $ time_left = 2000.0
     n "You've entered the school of John..."
     n "John is British 'cause I don't know American schools."
     menu:
@@ -180,6 +182,7 @@ label wardrobe:
     jump bedroom
 
 label bathroom:
+    $ privacy = False
     menu:
         "What do you do?"
         "Take a quick shower":
@@ -227,10 +230,14 @@ label bathroom:
                     "No":
                         jump bathroom
             jump bathroom
-        "Lock the door":
+        "Lock the door" if not privacy:
             n "Privacy first."
             $ stress(-1.0)
-            $ privacy = True
+            $ privacy = privacy
+            jump bathroom
+        "Unlock the door" if privacy:
+            n "Unlocked."
+            $ privacy = not privacy
             jump bathroom
         "Leave":
             jump bedroom
@@ -256,7 +263,7 @@ label bChase:
                 "Under the sink...":
                     n "You see a note... \"Don't forget to brush your teeth - mum\""
                     menu:
-                        n "It must be an encoded message... quickly, decipher it!{w=7.5}{nw}"
+                        n "It must be an encoded message... quickly, decipher it!"
                         "Try decipher it...":
                             n "As you over analyse the note, you *note*ice something..."
                             "This can't be..."
