@@ -16,9 +16,20 @@ default wearing = {
     "Trousers": False
 }
 
+default persistent.time_out = False
+default persistent.the_chase = False
+default persistent.the_note_is_a_lie = False
+default persistent.unlucky_completionist = False
+
 image mirror:
     "images/Mirror.png"
     zoom 35
+
+image Gridfinity:
+    "images/Gridfinity.png"
+
+image keycaps:
+    "images/keycaps.png"
 
 define m = Character("Mother")
 define b = Character("Bestie")
@@ -68,6 +79,7 @@ init python:
         time_left -= amount
         renpy.restart_interaction()
         if time_left <= 0.0:
+            persistent.time_out = True
             renpy.say(m, "C'mon. We're going to school.")
             renpy.jump("School")
 
@@ -154,7 +166,7 @@ label livingroom:
             m "We all know what happened when he ate all that salad..."
     $ time_left = 0.0
     $ time(0.0)
-    return
+    jump JohnEndings
 
 label wardrobe:
     $ clothes = list(wearing.keys())
@@ -225,6 +237,7 @@ label bathroom:
 
 label bChase:
     $ time(1.75)
+    $ persistent.the_chase = True
     menu:
         n "Where do you look for John?"
         "His room.":
@@ -250,6 +263,7 @@ label bChase:
                             n "You mutter as you realise something important."
                             n "John has a lie that has rooted so deeply into his mind that he can never say the truth."
                             n "The lie in question: he—"
+                            $ persistent.the_note_is_a_lie = True
                             n "The door slams shut and your brothers hurried footsteps can be heard."
                             n "You suddenly realise the time..."
                             $ time_left = 0.0
@@ -262,7 +276,7 @@ label bChase:
             $ time(0.5)
             jump bChase
         "The kitchen.":
-            n "That little gremlin is eating your favourite cereal you were saving for today!"
+            n "That little gremlin is eating your favourite cereal that you were saving for today!"
             menu:
                 "HEY!":
                     m "What's going on, this time?"
@@ -313,7 +327,9 @@ label PE:
 define bully = Character("Bully", color="#b11e1e85")
 
 label changingRoomAlone:
-    pass
+    n "After you finish changing alone, you have a strange feeling you missed a ton of lore..."
+    $ persistent.unlucky_completionist = True
+    jump pool
 
 label changingRoomTogether:
     b "Here's a nice stall! But... but only one..."
@@ -334,7 +350,7 @@ label changingRoomTogether:
                     n "You and your bestie enter the stall, and start changing together..."
                     n "Suddenly there is a loud knocking on the door."
                     b "Y-Yes? Who is it?"
-                    bully "You two lovebirds having fun? *Snears a laugh.*"
+                    bully "You two lovebirds having fun? *Sneers a laugh.*"
                     b "DAMN - LEAVE US IN PEACE."
                     bully "Woah... ragebaited easy as always?"
                     menu:
@@ -362,38 +378,158 @@ label changingRoomTogether:
                             $ stress(-1.0)
                     b "*Returns.* Well... let's finish changing."
                     n "After a few minutes, your bestie leads you through to the swimming pool - no sign of that dastardly bully."
-            "T-Thank you."
-            b "For what?"
-            menu:
-                "Never mind.":
-                    b "Oh... alright!"
-                "For helping me...":
-                    b "You are my bestie. So it was, is, and will always be my great pleasure."
-                "For... everything...":
-                    b "*Faces flushes crimson.* I... sure... you're welcome... {w=1.0}Oh... alright! *gently takes your hand in theirs.*"
-            "*I pause as we pass a mirror on the wall, staring at my own reflection.*"
-            show mirror
-            b "*Rests their hand on your shoulder.* C'mon. You've seen a mirror before."
-            "I...{w=1.0} they were right...{w=1.0} I'll never be great... {w=1.0}never be {w=0.5}typical... {w=1.0}never be {w=0.5}normal..."
-            b "Listen...{w=1.0}{nw}"
-            b "Every mirror has scratches, {w=0.5}smudges {w=0.5}and imperfections. Never,{w=1.0} and I repeat NEVER do they tell the full truth..."
-            b "{w=1.0}no matter how real it looks."
-            $ stress(5.0)
-            n "A sense of unease fills you as that strange bar on the left you noticed quite some time ago fills further as that is said by your 'bestie'."
-            menu:
-                b "What's wrong, [name], you look a bit pale?"
-                "I... I'm fine...":
-                    b "Oh... alright!"
-                "Just... a bit sick...":
-                    b "Oh... alright!"
-                "No. You are pale. Uno reverse.":
-                    b "I... uh... WHAT?!"
-                    n "You swear you see steam coming out of their ears."
-            $ say("Teacher", "C'mon, everyone! Lesson starting! If you're changed come out here.")
-            b "Well, guess that's our queue! Come on! *Takes your hand, leading you to the pool.*"
-            "Yeah. Prepared to drown."
-            b "Drown? I do not want to drown. Death would mean not being alive."
-            n "Ugh, so monotone. When will they show more emotions?!"
-            "*Laughs.*"
-            b "What's funny? Death is not funny. It is the end of life."
-            "*Chuckles.* Right."
+                    jump pool
+
+label pool:
+        "T-Thank you."
+        b "For what?"
+        menu:
+            "Never mind.":
+                b "Oh... alright!"
+            "For helping me...":
+                b "You are my bestie. So it was, is, and will always be my great pleasure."
+            "For... everything...":
+                b "*Faces flushes crimson.* I... sure... you're welcome... {w=1.0}Oh... alright! *gently takes your hand in theirs.*"
+        "*I pause as we pass a mirror on the wall, staring at my own reflection.*"
+        show mirror
+        b "*Rests their hand on your shoulder.* C'mon. You've seen a mirror before."
+        "I...{w=1.0} they were right...{w=1.0} I'll never be great... {w=1.0}never be {w=0.5}typical... {w=1.0}never be {w=0.5}normal..."
+        b "Listen...{w=1.0}{nw}"
+        b "Every mirror has scratches, {w=0.5}smudges {w=0.5}and imperfections. Never,{w=1.0} and I repeat NEVER do they tell the full truth..."
+        b "{w=1.0}no matter how real it looks."
+        $ stress(5.0)
+        n "A sense of unease fills you as that strange bar on the left you noticed quite some time ago fills further as that is said by your 'bestie'."
+        menu:
+            b "What's wrong, [name], you look a bit pale?"
+            "I... I'm fine...":
+                b "Oh... alright!"
+            "Just... a bit sick...":
+                b "Oh... alright!"
+            "No. You are pale. Uno reverse.":
+                b "I... uh... WHAT?!"
+                n "You swear you see steam coming out of their ears."
+        $ say("Teacher", "C'mon, everyone! Lesson starting! If you're changed, come out here.")
+        b "Well, guess that's our cue! Come on! *Takes your hand, leading you to the pool.*"
+        "Yeah. Prepared to drown."
+        b "Drown? I do not want to drown. Death would mean not being alive."
+        n "Ugh, so monotone. When will they show more emotions?!"
+        "*Laughs.*"
+        b "What's funny? Death is not funny. It is the end of life."
+        "*Chuckles.* Right."
+        n "An hour later... after P.E. - you got changed without any hassle and now it's D.T. (Design & Technology)."
+        $ say("D.T. Teacher", "Okay, you all have three options of what to do today...")
+        menu:
+            n "What do you do?"
+            "Make keycaps? (Resolution-Design reference!)":
+                show keycaps
+                n "And here it is!"
+            "Make a Gridfinity? (Another Resolution-Design reference!)":
+                show Gridfinity
+                n "And here it is!"
+            "Make art for a visual novel you're calling 'SaladPunk'. A game about—":
+                show mirror
+                n "Yeah yeah, you've already heard it. After all, you're playing it!"
+                hide mirror
+                n "*You make some amazing art...*"
+                "Yes! Here it is! Perfect!"
+                n "3...{w=0.5} 2...{w=0.5} 1..."
+                n "And there still is no art!"
+                n "That's intentional. Yes. Totally intentional. Don't question it."
+        hide keycaps
+        hide Gridfinity
+        hide mirror
+        menu:
+            n "Are you PROUD of yourself?"
+            "Yes!":
+                n "Well your teacher isn't. Your friends aren't. {w=1.0}There will ALWAYS be someone who isn't proud of you. That's guaranteed."
+                n "Yet you're not guaranteed to have someone proud of you. {w=1.0}So...{w=0.7} what do you need to do?"
+                n "You need to work harder and harder. Do enough - do great enough - do good enough to guarantee at least YOU are proud of yourself."
+                $ renpy.pause(0.5)
+                b "You done staring off into oblivion? Or were you trying to unlock the 'Motivated Ending?'"
+                b "All you're unlocking is the door to an aneurysm (however that is spelt)."
+            "No, I should've done better!":
+                $ say("FreeformWave (Developer)", "Ouch... just so you know, I put a lot of effort into that!")
+        jump JohnEndings
+
+image salad_bg = Solid("#00b5fc")
+
+default persistent.burnt_out = False
+default persistent.depressed = False
+default persistent.motivated = False
+default persistent.good_day = False
+
+label JohnEndings:
+    scene salad_bg with vpunch
+    stop music fadeout 2.0
+    "{w=0.1}The.{w=1.0} Ending.{w=1.0} List."
+    "Which...{w=0.5} is...{w=0.2} awfully sky-coloured?"
+    "Why? Well I don't know! Why you asking me? I'm only the developer."
+    "But that is actually a really detailed sky. The birds... the sea in the background... the plane. So much depth!"
+    if persistent.time_out:
+        "Ran out of time to get ready... ✓"
+
+    if persistent.the_chase:
+        "Leave John Alone! ✓"
+        if total_happiness < 30:
+            "And chase what truly matters."
+            "You chased vengeance."
+            "Not happiness."
+            "Righteous rather than ruthless."
+            "Rest rather than rage."
+
+    if persistent.the_note_is_a_lie:
+        "THE CAK— NOTE IS A LIE!! ✓"
+        if total_stress > 70:
+            "Although this 'lie' was not a lie but rather a truth..."
+            "A truth that weighs heavily upon your soul."
+
+    if persistent.unlucky_completionist:
+        "You done it! {w=1.0}...{w=1.0} Although you missed a TON of the lore..."
+        if persistent.the_note_is_a_lie:
+            "At least... {w=1.0}at least you learnt that one secret...{w=1.0} despite all the missed emotional context..."
+
+    if total_stress > 80 and total_energy < 30:
+        "You're completely burnt out."
+        $ persistent.burnt_out = True
+
+    if depressionModifier > 1.0 and total_happiness < 20:
+        "You're completely depressed."
+        $ persistent.depressed = True
+
+    if total_happiness > 75 and total_energy > 70:
+        "You're motivated! You've got this!"
+        $ persistent.motivated = True
+
+    if total_stress < 40 and total_happiness > 60:
+        "Been a good day. Pretty good day."
+        $ persistent.good_day = True
+
+    if all([persistent.time_out, persistent.the_chase, persistent.the_note_is_a_lie, persistent.unlucky_completionist]):
+        "You saw all but what mattered. {w=1.0}Your mind was scattered yet soft and oblivious to the truth that mattered."
+        "You focused more on your brother than yourself. {w=1.0}A mistake."
+        $ say("The Overseer", "I am disappointed... {w=1.0}very, very disappointed.")
+
+    if total_stress < 50 and total_happiness < 50:
+        "Nothing went terribly wrong."
+        "Nothing went particularly right."
+        "The day happened."
+        "And so did you."
+        "It was safe yet dull. {w=1.0}Fun yet not exhilarating."
+
+    $ endings = [persistent.time_out, persistent.the_chase, persistent.the_note_is_a_lie, persistent.unlucky_completionist]
+    "That adds up to{w=1.0}.{w=0.9}.{w=0.6}. {w=2.0}[sum(endings)]/[len(endings)] endings!"
+
+    if total_happiness > 65 and not persistent.unlucky_completionist:
+        "Through everything..."
+        "You weren't alone."
+
+    scene black with fade
+    menu:
+        "Again?"
+        "Restart?":
+            jump start
+        "John again?":
+            jump john_world_Start
+        "Main Menu?":
+            return
+    return
