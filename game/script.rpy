@@ -36,7 +36,7 @@ image SaladMonster:
 default pronoun = "Mr."
 label start:
     $ selected_bgm = random.choice(bgm_tracks)
-    play music selected_bgm fadein 1.0 loop
+    play music selected_bgm fadein 1.0 loop volume 0.2
     menu:
         "How do you want to be addressed?"
         "Mr.":
@@ -52,7 +52,7 @@ label start:
             if "gerald" in pronoun.strip().lower():
                 $ pronoun = "⧫⨀⧖⨁⧘⨂"
             elif "freeformwave" in pronoun.strip().lower() or ("wave" in pronoun.strip().lower() and ("form" in pronoun.strip().lower() or "free" in pronoun.strip().lower())):
-                "You have commited identity theft of the very developer you should be worshipping."
+                "You have committed identity theft of the very developer you should be worshipping."
                 "You will now be terminated and replaced with an identical clone."
                 $ pronoun = renpy.random.choice(["Logan", "Safia", "David", "Kanokid", "John Smith", "Mehar", "Ghastly", "Ashmit"])
                 "This clone shall be called... {w=1.0}\"[pronoun]\""

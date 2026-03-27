@@ -449,8 +449,6 @@ label pool:
             n "Are you PROUD of yourself?"
             "Yes!":
                 n "Well your teacher isn't. Your friends aren't. {w=1.0}There will ALWAYS be someone who isn't proud of you. That's guaranteed."
-                n "Yet you're not guaranteed to have someone proud of you. {w=1.0}So...{w=0.7} what do you need to do?"
-                n "You need to work harder and harder. Do enough - do great enough - do good enough to guarantee at least YOU are proud of yourself."
                 $ renpy.pause(0.5)
                 b "You done staring off into oblivion? Or were you trying to unlock the 'Motivated Ending?'"
                 b "All you're unlocking is the door to an aneurysm (however that is spelt)."
