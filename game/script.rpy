@@ -588,7 +588,7 @@ label bathroom:
         "Lock the door" if not privacy:
             n "Privacy first."
             $ stress(-1.0)
-            $ privacy = privacy
+            $ privacy = True
             jump bathroom
         "Unlock the door" if privacy:
             n "Unlocked."
